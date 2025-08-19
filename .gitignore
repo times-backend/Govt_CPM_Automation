@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+/.venv
+venv/
+env/
+ENV/
+
+# Google Ads credentials
+googleads.yaml
+googleadsN.yaml
+googleads1.yaml
+credentials.json
+
+# Logs
+logs/*.log
+logs/*.json
+
+# Downloads
+downloads/*.crdownload
+downloads/*.xlsx
+
+# IDE files
+*.code-workspace
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+test_output.txt

@@ -1,0 +1,189 @@
+{
+    "expresso_id": 277099,
+    "bigquery_data": null,
+    "api_data": {
+        "213568": {
+            "Client Id": 75577,
+            "Package Name": "ENGLISH NEWS - STANDARD BANNER",
+            "Targeting": "Geography: Canada",
+            "Package Id": 6368,
+            "Website(s) with platform": "TIL All Cluster",
+            "Business Name": "News",
+            "Gross Rate": 7.0,
+            "Goal": 635849.0,
+            "Language": "English",
+            "Package_StartDate": "2025-08-01 00:00:00",
+            "Booked Amount": 4450.943,
+            "Adserver Type": "Double Click",
+            "LineItem_Details": [
+                {
+                    "Line Item Name": "27709950INTLLEGOCATILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG213568",
+                    "Line Item Id": 6019944,
+                    "Targeting": "TIL_Standard Banner",
+                    "Comments": "consideration creatives",
+                    "Audience Campaign": "No",
+                    "ExtLineItems Details": [
+                        {
+                            "Start Date": "2025-08-01 00:00:00",
+                            "End Date": "2025-08-10 23:59:59",
+                            "Extension Line Item Name": "27709950INTLLEGOCATILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG213568_Consideration",
+                            "Extension Line Item Id": 6020113
+                        }
+                    ]
+                }
+            ],
+            "Pricing Type": "CPM",
+            "Package_EndDate": "2025-08-10 23:59:59"
+        },
+        "212571": {
+            "Client Id": 75577,
+            "Package Name": "ENGLISH NEWS - STANDARD BANNER",
+            "Targeting": "Geography: Canada",
+            "Package Id": 6368,
+            "Website(s) with platform": "TIL All Cluster",
+            "Business Name": "News",
+            "Gross Rate": 7.0,
+            "Goal": 1176430.0,
+            "Language": "English",
+            "Package_StartDate": "2025-08-01 00:00:00",
+            "Booked Amount": 8235.01,
+            "Adserver Type": "Double Click",
+            "LineItem_Details": [
+                {
+                    "Line Item Name": "27709920INTLSTARCOTILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG212571",
+                    "Line Item Id": 6015322,
+                    "Targeting": "TIL_Standard Banner",
+                    "Comments": "Awareness Creatives",
+                    "Audience Campaign": "No",
+                    "ExtLineItems Details": [
+                        {
+                            "Start Date": "2025-08-01 00:00:00",
+                            "End Date": "2025-08-10 23:59:59",
+                            "Extension Line Item Name": "27709920INTLSTARCOTILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG212571",
+                            "Extension Line Item Id": 6018475
+                        }
+                    ]
+                }
+            ],
+            "Pricing Type": "CPM",
+            "Package_EndDate": "2025-08-10 23:59:59"
+        },
+        "212570": {
+            "Client Id": 75577,
+            "Package Name": "ENGLISH NEWS - STANDARD BANNER",
+            "Targeting": "Geography: Canada",
+            "Package Id": 6368,
+            "Website(s) with platform": "TIL All Cluster",
+            "Business Name": "News",
+            "Gross Rate": 7.0,
+            "Goal": 1680713.0,
+            "Language": "English",
+            "Package_StartDate": "2025-07-21 00:00:00",
+            "Booked Amount": 11764.991,
+            "Adserver Type": "Double Click",
+            "LineItem_Details": [
+                {
+                    "Line Item Name": "27709910INTLSTARCOTILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG212570",
+                    "Line Item Id": 6015321,
+                    "Targeting": "TIL_Standard Banner",
+                    "Comments": "Awareness creatives",
+                    "Audience Campaign": "No",
+                    "ExtLineItems Details": [
+                        {
+                            "Start Date": "2025-07-21 00:00:00",
+                            "End Date": "2025-07-31 23:59:59",
+                            "Extension Line Item Name": "27709910INTLSTARCOTILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG212570",
+                            "Extension Line Item Id": 6018474
+                        },
+                        {
+                            "Start Date": "2025-07-21 00:00:00",
+                            "End Date": "2025-07-31 23:59:59",
+                            "Extension Line Item Name": "27709910INTLSTARCOTILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG212570_Awareness_STD_ACE_OPT",
+                            "Extension Line Item Id": 6021164
+                        }
+                    ]
+                }
+            ],
+            "Pricing Type": "CPM",
+            "Package_EndDate": "2025-07-31 23:59:59"
+        },
+        "213567": {
+            "Client Id": 75577,
+            "Package Name": "ENGLISH NEWS - STANDARD BANNER",
+            "Targeting": "Geography: Canada",
+            "Package Id": 6368,
+            "Website(s) with platform": "TIL All Cluster",
+            "Business Name": "News",
+            "Gross Rate": 7.0,
+            "Goal": 792722.0,
+            "Language": "English",
+            "Package_StartDate": "2025-07-21 00:00:00",
+            "Booked Amount": 5549.054,
+            "Adserver Type": "Double Click",
+            "LineItem_Details": [
+                {
+                    "Line Item Name": "27709940INTLLEGOCATILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG213567",
+                    "Line Item Id": 6019943,
+                    "Targeting": "TIL_Standard Banner",
+                    "Comments": "Consideration creative ",
+                    "Audience Campaign": "No",
+                    "ExtLineItems Details": [
+                        {
+                            "Start Date": "2025-07-21 00:00:00",
+                            "End Date": "2025-07-31 23:59:59",
+                            "Extension Line Item Name": "27709940INTLLEGOCATILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG213567_Consideration",
+                            "Extension Line Item Id": 6020073
+                        },
+                        {
+                            "Start Date": "2025-07-21 00:00:00",
+                            "End Date": "2025-07-31 23:59:59",
+                            "Extension Line Item Name": "27709940INTLLEGOCATILROSCAALLCPMENGNEWSSTDBANNTILSTANDARDBANNERPKG213567",
+                            "Extension Line Item Id": 6020131
+                        }
+                    ]
+                }
+            ],
+            "Pricing Type": "CPM",
+            "Package_EndDate": "2025-07-31 23:59:59"
+        },
+        "212572": {
+            "Client Id": 75577,
+            "Package Name": "CAN - CPC",
+            "Targeting": "Geography: Canada",
+            "Package Id": 2618,
+            "Website(s) with platform": "TIL Audience Network Website",
+            "Business Name": "All Network Cluster",
+            "Gross Rate": 0.4,
+            "Goal": 1.0,
+            "Language": "English + Vernacular",
+            "Package_StartDate": "2025-07-21 00:00:00",
+            "Booked Amount": 0.4,
+            "Adserver Type": "Columbia",
+            "LineItem_Details": [
+                {
+                    "Line Item Name": "27709930INTLSTARCOTILBOTHCAALLCPCCANCPCNCTNNATIVEBANNERPKG212572",
+                    "Line Item Id": 6015323,
+                    "Targeting": "CTN - Native Banner",
+                    "Comments": "Not to run",
+                    "Audience Campaign": "No",
+                    "ExtLineItems Details": [
+                        {
+                            "Start Date": "2025-07-21 00:00:00",
+                            "End Date": "2025-08-10 23:59:59",
+                            "Extension Line Item Name": "Not To Run",
+                            "Extension Line Item Id": 6018888
+                        },
+                        {
+                            "Start Date": "2025-07-21 00:00:00",
+                            "End Date": "2025-08-10 23:59:59",
+                            "Extension Line Item Name": "Not To Run",
+                            "Extension Line Item Id": 6018894
+                        }
+                    ]
+                }
+            ],
+            "Pricing Type": "CPC",
+            "Package_EndDate": "2025-08-10 23:59:59"
+        }
+    }
+}
