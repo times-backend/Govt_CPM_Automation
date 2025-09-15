@@ -39,6 +39,7 @@ from DSD.Dsd_Download import Dsd_Download
 from dsd_read import load_dsd
 from fetch_expresso_details import fetch_full_expresso_details
 from authenticate_google_cloud import get_ads_client, setup_authentication
+from bigquery_fetch import fetch_expresso_data
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.FLATLY], assets_folder=assets_folder)
 server = app.server
@@ -654,7 +655,7 @@ def handle_all_inputs(submit_n, clear_n, order_option_trigger, upload_contents, 
             try:
                 if not order_id or order_id == 'None' or order_id is None:
                     # Create new order name
-                    order_name,advertiser_name,dsd_file_path=Dsd_Download(expresso_number)
+                    order_name,advertiser_name=fetch_expresso_data(expresso_number)
                     # Map selected email to exact trafficker name per business rules
                     email_to_trafficker = {
                         'nitesh.pandey1@timesinternet.in': 'Nitesh Pandey',
@@ -839,72 +840,102 @@ app.index_string = '''
         {%favicon%}
         {%css%}
         <style>
-            * {
-                margin: 0 !important;
-                padding: 0 !important;
-                box-sizing: border-box !important;
-            }
-            html, body {
-                height: 100% !important;
-                overflow-x: hidden !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            #react-entry-point {
-                height: 100vh !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-            .form-field, .Select-control, .Select--single, .Select-placeholder, .Select-value, .Select-input, .Select-menu-outer, .Select-menu {
-                min-height: 40px !important;
-                height: 40px !important;
-                font-size: 1rem !important;
-                border-radius: 8px !important;
-                border: 1px solid #ced4da !important;
-                background: #fff !important;
-                box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-                padding-left: 12px !important;
-                padding-right: 12px !important;
-                box-sizing: border-box;
-                display: flex;
-                align-items: center;
-            }
-            input.form-field.form-control {
-                line-height: 2 !important;
-                height: 40px !important;
-            }
-            .Select-control {
-                border: 1px solid #ced4da !important;
-                background: #fff !important;
-                box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-                padding-left: 12px !important;
-                padding-right: 12px !important;
-                min-height: 40px !important;
-                height: 40px !important;
-                border-radius: 8px !important;
-                display: flex;
-                align-items: center;
-            }
-            .Select-placeholder, .Select-value {
-                font-size: 1rem !important;
-                color: #6c757d !important;
-                line-height: 2.0 !important;
-            }
-            .Select-arrow-zone {
-                padding-top: 0 !important;
-                padding-bottom: 0 !important;
-                display: flex;
-                align-items: center;
-            }
-            .Select-menu-outer {
-                border-radius: 8px !important;
-                font-size: 1rem !important;
-            }
-            .form-field:focus, .Select-control:focus {
-                border-color: #2684ff !important;
-                box-shadow: 0 0 0 2px rgba(38,132,255,0.2);
-            }
-        </style>
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: auto;
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    #react-entry-point {
+        height: 100vh;
+    }
+
+    /* Form and select styling */
+    .dash-dropdown,
+    .form-field,
+    .Select-control,
+    .Select--single,
+    .Select-placeholder,
+    .Select-value,
+    .Select-input,
+    .Select-menu {
+        min-height: 40px;
+        font-size: 1rem;
+        background: #fff;
+        padding-left: 12px;
+        padding-right: 12px;
+        display: flex;
+        align-items: center;
+	width: 100%;
+    }
+
+    input.form-field.form-control {
+        line-height: 2;
+        height: 40px;
+    }
+    .Select-control {
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    .Select-placeholder,
+    .Select-value {
+        font-size: 1rem;
+        color: #6c757d;
+        line-height: 2;
+    }
+
+    .Select-arrow-zone {
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+
+    .Select-menu-outer .Select-menu {
+        border-radius: 8px;
+        font-size: 1rem;
+        z-index: 9999;
+        overflow-y: auto;
+	min-width: 100%;
+        max-height: 200px;
+    }
+
+    .form-field:focus,
+    .Select-control:focus {
+        border-color: #2684ff;
+        box-shadow: 0 0 0 2px rgba(38, 132, 255, 0.2);
+        outline: none;
+    }
+.Select--multi .Select-multi-value-wrapper {
+    display: flex !important;
+    flex-wrap: nowrap !important;  /* Prevent line breaks */
+    overflow-x: auto !important;   /* Horizontal scroll if too many */
+    white-space: nowrap !important;
+    align-items: center;
+}
+
+/* Each value stays inline */
+.Select--multi .Select-value {
+    display: inline-flex !important;
+    width: auto !important;
+    max-width: none !important;
+    align-items: center;
+    flex: 0 0 auto !important;
+    margin: 0 6px 0 0 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px;
+    background: #f0f0f0 !important; /* optional chip background */
+    white-space: nowrap !important;
+}
+</style>
+
+        
     </head>
     <body>
         {%app_entry%}
