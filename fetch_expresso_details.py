@@ -52,7 +52,7 @@ def fetch_full_expresso_details(expresso_id):
     print("\n===== Generating Combined Report =====")
     combined_data = {
         "expresso_id": expresso_id,
-        "bigquery_data": bigquery_data.to_dict('records') if bigquery_data is not None else None,
+        #"bigquery_data": bigquery_data.to_dict('records') if bigquery_data is not None else None,
         "api_data": api_data
     }
     
