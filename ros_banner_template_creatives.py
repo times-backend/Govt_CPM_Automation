@@ -371,6 +371,12 @@ def create_custom_template_creatives(client, order_id, line_item_id, destination
         is_2x = '2x' in banner_filename.lower() or '2x' in size_name.lower()
         is_NoLP = 'nolp' in banner_filename.lower() or 'nolp' in size_name.lower()
         
+        # Debug logging for 2x detection
+        if is_2x:
+            print(f"🔍 2x detected for file: {banner_filename}, size: {size_name}")
+        if template_id:
+            print(f"🔍 Template ID provided: {template_id}")
+        
         # Initialize template_creative variable 
         template_creative = None
         
@@ -424,9 +430,15 @@ def create_custom_template_creatives(client, order_id, line_item_id, destination
         elif template_id:
             # Special case: if template is 12399020 (no destination URL) and individual image has 2x, use 12473441 for this creative
             if template_id == 12399020 and is_2x:
-                current_template_id = 12473441
+                current_template_id = 12473443
+                print(f"🔍 Using 2x template 12473443 (NoLP + 2x case)")
+            # Special case: if image has 2x indicator, use 2x template (12459443) regardless of provided template_id
+            elif is_2x:
+                current_template_id = 12459443
+                print(f"🔍 Using 2x template 12459443 (2x override case)")
             else:
                 current_template_id = template_id
+                print(f"🔍 Using provided template ID: {template_id}")
         elif script_code and len(script_code.strip()) > 10 and not landing_page and not impression_tracker:
             # Only use AI template if there's no landing page or impression tracker
             # If there's a landing page or impression tracker, use standard template instead
@@ -452,16 +464,20 @@ def create_custom_template_creatives(client, order_id, line_item_id, destination
             # Special case: if template is 12399020 (no destination URL) and individual image has 2x, use 12473441 for this creative
             if template_id == 12399020:
                 current_template_id = 12473441
+                print(f"🔍 Using 2x template 12473441 (NoLP + 2x case, no template_id override)")
             else:
                 # Use 2x template for files with "2x" in filename or size_name
                 current_template_id = 12459443
+                print(f"🔍 Using 2x template 12459443 (2x case, no template_id override)")
         else:
             # Special case: if template is 12399020 (no destination URL) and image doesn't have 2x, keep using 12399020
             if template_id == 12399020:
                 current_template_id = 12399020
+                print(f"🔍 Using NoLP template 12399020 (default case)")
             else:
                 # Default to standard template
                 current_template_id = 12330939
+                print(f"🔍 Using standard template 12330939 (default case)")
 
         # Initialize default size overrides
         size_overrides = []
@@ -480,6 +496,9 @@ def create_custom_template_creatives(client, order_id, line_item_id, destination
                 {'width': 320, 'height': 50}
             ]
          
+        # Log the final template selection
+        print(f"🔍 Final template selection for {banner_filename}: Template ID {current_template_id}")
+        
         # Set up template variables and creative based on template type (only if not already created for 600x250)
         if template_creative is None:
             if current_template_id == 12363950:  # 320x100 Special template

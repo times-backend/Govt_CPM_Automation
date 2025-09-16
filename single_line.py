@@ -3020,30 +3020,44 @@ def single_line_nwp(client, order_id, line_item_data, line_name, line_type="nwp"
     # End data processing timing
     timing_checkpoints['data_processing_end'] = time.time()
     
-    # Hardcoded placement data for NWP line - only 300x250 and 320x50
+    # Hardcoded Ad Unit data for NWP line - only 300x250 and 320x50
     timing_checkpoints['placement_lookup_start'] = time.time()
     
-    placement_data = {
-        '300x250': [31928991],  # Hardcoded placement ID for 300x250
-        '320x50': [31929216]    # Hardcoded placement ID for 320x50
+    # Updated to use Ad Units instead of Placement IDs
+    ad_unit_data = {
+        '300x250': {
+            'MWEB': [23314114031],  # NP_MWEB_PSBK_CAN_MREC
+            'AMP': [23314120439]    # NP_AMP_PSBK_CAN_MREC
+        },
+        '320x50': {
+            'MWEB': [23314114448],  # NP_MWEB_PSBK_CAN_ATF
+            'AMP': [23312946423]    # NP_AMP_PSBK_CAN_ATF
+        }
     }
     
-    print(f"🎯 Using hardcoded NWP placement data:")
-    for size, placements in placement_data.items():
-        print(f"  - {size}: {placements}")
+    print(f"🎯 Using hardcoded NWP Ad Unit data:")
+    for size, platforms in ad_unit_data.items():
+        for platform, ad_units in platforms.items():
+            print(f"  - {size} ({platform}): {ad_units}")
     
     timing_checkpoints['placement_lookup_end'] = time.time()
     
     # Start line creation timing
     timing_checkpoints['line_creation_start'] = time.time()
     
-    # Create the line item with hardcoded targeting
+    # Create the line item with Ad Unit targeting
+    # Flatten all ad units from all platforms and sizes
+    all_ad_units = []
+    for size_data in ad_unit_data.values():
+        for platform_ad_units in size_data.values():
+            all_ad_units.extend(platform_ad_units)
+    
     line_item = {
         'name': unique_line_name,
         'orderId': order_id,
         'targeting': {
             'inventoryTargeting': {
-                'targetedPlacementIds': list(set([pid for placements in placement_data.values() for pid in placements]))
+                'targetedAdUnits': [{'adUnitId': str(ad_unit_id), 'includeDescendants': True} for ad_unit_id in all_ad_units]
             }
         },
         'startDateTime': {
@@ -3132,24 +3146,23 @@ def single_line_nwp(client, order_id, line_item_data, line_name, line_type="nwp"
         })
         print(f"📝 Added creative placeholder for {size} with targetingName: {size}")
         
-        # Add creative targeting that matches the placement data
-        if size in placement_data:
+        # Add creative targeting that matches the Ad Unit data
+        if size in ad_unit_data:
+            # Get all ad units for this size across all platforms
+            size_ad_units = []
+            for platform_ad_units in ad_unit_data[size].values():
+                size_ad_units.extend(platform_ad_units)
+            
             targeting_dict = {
                 'name': size,  # This must match the targetingName in LICA
                 'targeting': {
                     'inventoryTargeting': {
-                        'targetedPlacementIds': placement_data[size]
+                        'targetedAdUnits': [{'adUnitId': str(ad_unit_id), 'includeDescendants': True} for ad_unit_id in size_ad_units]
                     }
                 }
             }
             creative_targetings.append(targeting_dict)
-            # Check if this is using Ad slot IDs
-            targeting_type = "placement_id"  # default
-            if isinstance(placement_data[size], dict) and placement_data[size].get('targeting_type') == 'ad_slot_id':
-                targeting_type = 'ad_slot_id'
-                print(f"📝 Added creative targeting for {size} with Ad slot IDs: {placement_data[size]}")
-            else:
-                print(f"📝 Added creative targeting for {size} with placement IDs: {placement_data[size]}")
+            print(f"📝 Added creative targeting for {size} with Ad Units: {size_ad_units}")
     
     # Add creative targetings to line item
     line_item['creativeTargetings'] = creative_targetings
@@ -3159,21 +3172,28 @@ def single_line_nwp(client, order_id, line_item_data, line_name, line_type="nwp"
     print(f"  - Creative Placeholders: {len(line_item['creativePlaceholders'])}")
     print(f"  - Creative Targetings: {len(creative_targetings)}")
     for i, targeting in enumerate(creative_targetings):
-        print(f"    {i+1}. Name: '{targeting['name']}', Placements: {targeting['targeting']['inventoryTargeting']['targetedPlacementIds']}")
+        ad_units = [unit['adUnitId'] for unit in targeting['targeting']['inventoryTargeting']['targetedAdUnits']]
+        print(f"    {i+1}. Name: '{targeting['name']}', Ad Units: {ad_units}")
     print(f"  - Line Item Keys: {list(line_item.keys())}")
     
-    # Update placement data to only include sizes with available creatives
-    filtered_placement_data = {}
+    # Update Ad Unit data to only include sizes with available creatives
+    filtered_ad_unit_data = {}
     for size in available_nwp_sizes:
-        if size in placement_data:
-            filtered_placement_data[size] = placement_data[size]
+        if size in ad_unit_data:
+            filtered_ad_unit_data[size] = ad_unit_data[size]
     
-    placement_data = filtered_placement_data
-    print(f"🎯 Filtered NWP placement data: {placement_data}")
+    ad_unit_data = filtered_ad_unit_data
+    print(f"🎯 Filtered NWP Ad Unit data: {ad_unit_data}")
     
-    # Update targeted placement IDs to only include placements for available creatives
-    if placement_data:
-        line_item['targeting']['inventoryTargeting']['targetedPlacementIds'] = list(set([pid for placements in placement_data.values() for pid in placements]))
+    # Update targeted Ad Units to only include ad units for available creatives
+    if ad_unit_data:
+        # Flatten all ad units from all platforms and sizes
+        all_ad_units = []
+        for size_data in ad_unit_data.values():
+            for platform_ad_units in size_data.values():
+                all_ad_units.extend(platform_ad_units)
+        
+        line_item['targeting']['inventoryTargeting']['targetedAdUnits'] = [{'adUnitId': str(ad_unit_id), 'includeDescendants': True} for ad_unit_id in all_ad_units]
     else:
         print("⚠️ No creative files found for NWP line!")
         raise Exception("No creative files found for NWP line (300x250 or 320x50)")
@@ -3181,8 +3201,37 @@ def single_line_nwp(client, order_id, line_item_data, line_name, line_type="nwp"
     try:
         # Create the line item
         print("🚀 Creating NWP line item...")
-        created_line_items = line_item_service.createLineItems([line_item])
-        line_item_id = created_line_items[0]['id']
+        print(f"🔍 Line item structure:")
+        print(f"  - Name: {line_item.get('name')}")
+        print(f"  - Order ID: {line_item.get('orderId')}")
+        print(f"  - Targeting keys: {list(line_item.get('targeting', {}).keys())}")
+        print(f"  - Inventory targeting keys: {list(line_item.get('targeting', {}).get('inventoryTargeting', {}).keys())}")
+        
+        try:
+            created_line_items = line_item_service.createLineItems([line_item])
+            print(f"✅ Line item creation API call successful")
+        except Exception as api_error:
+            print(f"❌ Line item creation API call failed: {api_error}")
+            print(f"🔍 API Error type: {type(api_error).__name__}")
+            print(f"🔍 API Error details: {str(api_error)}")
+            raise api_error
+        
+        # Debug the response
+        print(f"🔍 Created line items response: {created_line_items}")
+        print(f"🔍 Response type: {type(created_line_items)}")
+        print(f"🔍 Response length: {len(created_line_items) if isinstance(created_line_items, list) else 'Not a list'}")
+        
+        if not created_line_items or len(created_line_items) == 0:
+            raise Exception("No line items were created - empty response from API")
+        
+        first_line_item = created_line_items[0]
+        print(f"🔍 First line item: {first_line_item}")
+        print(f"🔍 First line item keys: {list(first_line_item.keys()) if isinstance(first_line_item, dict) else 'Not a dict'}")
+        
+        if 'id' not in first_line_item:
+            raise Exception(f"Line item created but no 'id' field found. Available keys: {list(first_line_item.keys())}")
+        
+        line_item_id = first_line_item['id']
         print(f"✅ Successfully created NWP line item with ID: {line_item_id}")
         
         # End line creation, start creative creation timing
@@ -3192,8 +3241,13 @@ def single_line_nwp(client, order_id, line_item_data, line_name, line_type="nwp"
     except Exception as e:
         error_str = str(e)
         print(f"❌ Failed to create NWP line item: {e}")
+        print(f"🔍 Exception Debug Info:")
+        print(f"  - Exception type: {type(e).__name__}")
+        print(f"  - Exception str: {str(e)}")
+        print(f"  - Exception repr: {repr(e)}")
         logger.log_line_creation_error(e, unique_line_name, str(order_id), session_id)
-        raise
+        # Re-raise the original exception instead of trying to access 'id'
+        raise e
 
     # Create creatives only for 300x250 and 320x50
     creative_ids = []
@@ -3301,7 +3355,7 @@ def single_line_nwp(client, order_id, line_item_data, line_name, line_type="nwp"
     print(f"  - Line created: 1")
     print(f"  - Creatives created: {len(creative_ids) if creative_ids else 0}")
     print(f"  - Total time: {total_time:.2f}s")
-    print(f"  - Hardcoded placements: {list(placement_data.keys())}")
+    print(f"  - Ad Units used: {list(ad_unit_data.keys())}")
 
     return line_item_id, creative_ids
 
@@ -3313,7 +3367,7 @@ if __name__ == '__main__':
     client = ad_manager.AdManagerClient.LoadFromStorage("googleads1.yaml") 
     order_id = 3741465536  # Hardcoded for testing
     timestamp = int(time.time())
-    line_name = f"TEST_THREE_LINE29"
+    line_name = f"TEST_THREE_LINE47"
     
     # Print current sheet names for debugging
     print("\n🔍 Current sheet name constants:")
@@ -3338,7 +3392,7 @@ if __name__ == '__main__':
         'geoTargeting': ['Mumbai'], 
         'Line_label': 'Education', 
         'Line_name': f'TEST_THREE_LINES_STANDARD_{timestamp}', 
-        'Template_id': '12330939'
+       
     }
     
     try:
