@@ -1,7 +1,7 @@
 import logging
 
 def create_advertiser(client, advertiser_name):
-    company_service = client.GetService('CompanyService', version='v202408')
+    company_service = client.GetService('CompanyService', version='v202508')
     advertiser = {
         'name': advertiser_name,
         'type': 'ADVERTISER'

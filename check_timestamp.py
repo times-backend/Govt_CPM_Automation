@@ -17,7 +17,7 @@ def main():
         print("✅ Successfully authenticated with Google Ad Manager")
         
         # Get PQL service
-        pql_service = client.GetService('PublisherQueryLanguageService', version='v202408')
+        pql_service = client.GetService('PublisherQueryLanguageService', version='v202508')
         
         # Try different timestamp-related searches
         searches = [

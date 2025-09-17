@@ -1,7 +1,7 @@
 from googleads import ad_manager
 
 def get_preset_id_by_name(client, preset_name):
-    custom_targeting_values_service = client.GetService('CustomTargetingService', version='v202408')
+    custom_targeting_values_service = client.GetService('CustomTargetingService', version='v202508')
 
     statement = (ad_manager.StatementBuilder()
                 .Where("name = :presetName")

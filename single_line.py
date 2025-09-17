@@ -198,7 +198,7 @@ def get_geo_id(client, location_name):
     - "Aurangabad, Bihar" (specific state targeting)
     """
     print(f"🔍 Searching for Geo ID of: {location_name}")
-    pql_service = client.GetService("PublisherQueryLanguageService", version="v202408")
+    pql_service = client.GetService("PublisherQueryLanguageService", version="v202508")
 
     # Parse location input for state/region specification
     location_parts = [part.strip() for part in location_name.split(',')]
@@ -359,7 +359,7 @@ def get_geo_id(client, location_name):
 def get_parent_region_info(client, geo_id):
     """Get parent region information for a geo location"""
     try:
-        pql_service = client.GetService("PublisherQueryLanguageService", version="v202408")
+        pql_service = client.GetService("PublisherQueryLanguageService", version="v202508")
         
         # Query to get parent region information
         parent_query = f"""
@@ -859,8 +859,8 @@ def read_tag_file():
 def check_line_item_name_exists(client, order_id, line_name_base):
     """Check if a line item with similar name already exists in the order or globally"""
     try:
-        line_item_service = client.GetService('LineItemService', version='v202408')
-        pql_service = client.GetService('PublisherQueryLanguageService', version='v202408')
+        line_item_service = client.GetService('LineItemService', version='v202508')
+        pql_service = client.GetService('PublisherQueryLanguageService', version='v202508')
         
         print(f"🔍 Checking for duplicates of line name: {line_name_base}")
         print(f"🔍 Line name length: {len(line_name_base)} characters")
@@ -957,7 +957,7 @@ def single_line(client, order_id, line_item_data, line_name):
     # Log line creation start
     logger.log_line_creation_start(str(order_id), line_item_data, line_name, session_id)
     
-    line_item_service = client.GetService('LineItemService', version='v202408')
+    line_item_service = client.GetService('LineItemService', version='v202508')
     
     # Track created creatives by size to prevent duplicates
     created_creative_sizes = set()
@@ -2652,7 +2652,7 @@ def single_line_with_custom_sheet(client, order_id, line_item_data, line_name, c
     # Log line creation start
     logger.log_line_creation_start(str(order_id), line_item_data, line_name, session_id)
     
-    line_item_service = client.GetService('LineItemService', version='v202408')
+    line_item_service = client.GetService('LineItemService', version='v202508')
     
     # Track created creatives by size to prevent duplicates
     created_creative_sizes = set()
@@ -2941,7 +2941,7 @@ def single_line_nwp(client, order_id, line_item_data, line_name, line_type="nwp"
         'creative_creation_end': None
     }
     
-    line_item_service = client.GetService('LineItemService', version='v202408')
+    line_item_service = client.GetService('LineItemService', version='v202508')
     
     # Track created creatives by size to prevent duplicates
     created_creative_sizes = set()

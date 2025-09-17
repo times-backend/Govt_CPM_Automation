@@ -17,7 +17,7 @@ def main():
         print("✅ Successfully authenticated with Google Ad Manager")
         
         # Get order service
-        order_service = client.GetService('OrderService', version='v202408')
+        order_service = client.GetService('OrderService', version='v202508')
         
         # Try to get the order directly using the service
         try:

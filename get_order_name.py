@@ -2,7 +2,7 @@ from googleads import ad_manager
 
 
 def fetch_advertiser_id_from_order(client, order_id):
-    order_service = client.GetService('OrderService', version='v202408')  # Adjust the version as needed
+    order_service = client.GetService('OrderService', version='v202508')  # Adjust the version as needed
     statement = ad_manager.StatementBuilder().Where('id = :order_id').WithBindVariable('order_id', order_id)
     try:
         response = order_service.getOrdersByStatement(statement.ToStatement())

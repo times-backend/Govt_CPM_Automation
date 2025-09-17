@@ -13,7 +13,7 @@ def debug_specific_line_item(client, line_name):
         print(f"\n🔍 DEBUGGING SPECIFIC LINE ITEM: {line_name}")
         print(f"🔍 Line name length: {len(line_name)} characters")
         
-        pql_service = client.GetService('PublisherQueryLanguageService', version='v202408')
+        pql_service = client.GetService('PublisherQueryLanguageService', version='v202508')
         
         # Try multiple search strategies including archived/deleted items
         search_strategies = [

@@ -133,8 +133,8 @@ def create_custom_template_creatives(client, order_id, line_item_id, destination
     Raises:
         ValueError: If required fields are missing or no creatives are found
     """
-    creative_service = client.GetService('CreativeService', version='v202408')
-    lica_service = client.GetService('LineItemCreativeAssociationService', version='v202408')
+    creative_service = client.GetService('CreativeService', version='v202508')
+    lica_service = client.GetService('LineItemCreativeAssociationService', version='v202508')
     logging.info(f"Creating creatives for size: {size_name}")
 
     # For AI template (12435443), impression/click template (12330939), In-Banner Video template (12344286), 320x100 special template (12363950), 300x250 richmedia template (12460223), no destination template (12473441), and no landing page template (12399020), destination_url is not strictly required
@@ -817,7 +817,7 @@ def create_custom_template_creatives(client, order_id, line_item_id, destination
     return creative_ids
 
 def get_html_variable_name(client, template_id):
-    creative_template_service = client.GetService('CreativeTemplateService', version='v202408')
+    creative_template_service = client.GetService('CreativeTemplateService', version='v202508')
     # Use a filter statement to fetch the template by ID
     filter_statement = {
         'query': 'WHERE id = :id',

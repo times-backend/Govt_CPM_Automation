@@ -4,7 +4,7 @@ from create_advertiserId import create_advertiser
 def get_adbvertiser_id(client, company_name, company_type):
     """Fetch the ID of a company (advertiser) from Google Ad Manager."""
     try:
-        company_service = client.GetService('CompanyService', version='v202408')
+        company_service = client.GetService('CompanyService', version='v202508')
         statement = (ad_manager.StatementBuilder()
                      .Where('name = :name AND type = :type')
                      .WithBindVariable('name', company_name)
@@ -23,7 +23,7 @@ def get_adbvertiser_id(client, company_name, company_type):
 def fetch_trafficker_id(client, trafficker_email):
     """Fetch the ID of a trafficker using email."""
     try:
-        user_service = client.GetService('UserService', version='v202408')
+        user_service = client.GetService('UserService', version='v202508')
         
         # Create a statement to filter by email
         statement = ad_manager.StatementBuilder()
@@ -84,7 +84,7 @@ def create_order(client, advertiser_name, trafficker_name, order_name, line_item
         print(f"Advertiser ID: {advertiser_id}, Trafficker ID: {trafficker_id}")
 
         # Create order
-        order_service = client.GetService('OrderService', version='v202408')
+        order_service = client.GetService('OrderService', version='v202508')
         order = {
             'name': order_name,
             'advertiserId': advertiser_id,
@@ -94,7 +94,7 @@ def create_order(client, advertiser_name, trafficker_name, order_name, line_item
         # Handle label if present
         if line_item_data.get("label"):
             label_name = line_item_data["label"]
-            label_service = client.GetService("LabelService", version="v202408")
+            label_service = client.GetService("LabelService", version="v202508")
             
             # Check for "ad exclusion" in label name (case-insensitive)
             if "ad exclusion" in label_name.lower():
